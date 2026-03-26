@@ -59,28 +59,23 @@ io.on('connection', (socket) => {
 
 const PORT = process.env.PORT || 5000;
 
+// Production Build Serving Logic (Professional Senior Refactoring)
+// Production Build Serving Logic (Professional Senior Refactoring for Express 5)
 if (process.env.NODE_ENV === 'production') {
   const path = require('path');
   const frontendPath = path.join(__dirname, '../frontend/build');
 
   app.use(express.static(frontendPath));
 
-  // Express 5 specific wildcard syntax for SPA routing
-    // Express 5 specific wildcard syntax for SPA routing
-  // Use (.*) to signify a catch-all group for Express 5 compatibility
-   // Express 5 specific wildcard syntax for SPA routing
-  // The ':path*' syntax creates a named wildcard that satisfies Express 5 requirements
-  app.get('/:path*', (req, res) => {
-    // Only serve index.html if it's not an API call
-    if (!req.path.startsWith('/api')) {
-      const path = require('path');
-      const frontendPath = path.join(__dirname, '../frontend/build');
-      res.sendFile(path.resolve(frontendPath, 'index.html'));
-    }
+  // SENIOR FOOLPROOF ROUTING: Using a direct Regex to avoid Path-to-Regexp parsing errors.
+  // This matches any request that is NOT an API call and serves the React frontend.
+  app.get(/^(?!\/api).*/, (req, res) => {
+    const path = require('path');
+    const frontendPath = path.join(__dirname, '../frontend/build');
+    res.sendFile(path.resolve(frontendPath, 'index.html'));
   });
-
-
 }
+
 server.listen(PORT, '0.0.0.0', () => {
-    console.log(`[Server] Core running on port ${PORT} [Mode: ${process.env.NODE_ENV || 'development'}]`);
+  console.log(`[Server] Core running on port ${PORT} [Mode: ${process.env.NODE_ENV || 'development'}]`);
 });
