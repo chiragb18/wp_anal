@@ -124,9 +124,12 @@ const darkTheme = createTheme({
 });
 
 function App() {
-  const host = window.location.hostname || '127.0.0.1';
-  const API_URL = process.env.REACT_APP_API_URL + "/api";
-const SOCKET_URL = process.env.REACT_APP_API_URL;
+  // --- DYNAMIC API & SOCKET CONFIG ---
+  // In production, we use the environment variable. In local dev, we fallback to localhost:5000.
+  const backendBase = process.env.REACT_APP_API_URL || (window.location.hostname === 'localhost' ? 'http://localhost:5000' : '');
+  const API_URL = `${backendBase}/api`;
+  const SOCKET_URL = backendBase;
+  
   // --- STATE ---
   const [isConnected, setIsConnected] = useState(false);
   const [qrCode, setQrCode] = useState(null);
