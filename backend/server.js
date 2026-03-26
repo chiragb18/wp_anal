@@ -68,7 +68,9 @@ if (process.env.NODE_ENV === 'production') {
   // Express 5 specific wildcard syntax for SPA routing
     // Express 5 specific wildcard syntax for SPA routing
   // Use (.*) to signify a catch-all group for Express 5 compatibility
-  app.get('(.*)', (req, res) => {
+   // Express 5 specific wildcard syntax for SPA routing
+  // The ':path*' syntax creates a named wildcard that satisfies Express 5 requirements
+  app.get('/:path*', (req, res) => {
     // Only serve index.html if it's not an API call
     if (!req.path.startsWith('/api')) {
       const path = require('path');
@@ -76,6 +78,7 @@ if (process.env.NODE_ENV === 'production') {
       res.sendFile(path.resolve(frontendPath, 'index.html'));
     }
   });
+
 
 }
 server.listen(PORT, '0.0.0.0', () => {
