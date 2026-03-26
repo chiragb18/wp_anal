@@ -125,9 +125,8 @@ const darkTheme = createTheme({
 
 function App() {
   const host = window.location.hostname || '127.0.0.1';
-  const API_URL = `http://${host}:5000/api`;
-  const SOCKET_URL = `http://${host}:5000`;
-
+  const API_URL = process.env.REACT_APP_API_URL + "/api";
+const SOCKET_URL = process.env.REACT_APP_API_URL;
   // --- STATE ---
   const [isConnected, setIsConnected] = useState(false);
   const [qrCode, setQrCode] = useState(null);
