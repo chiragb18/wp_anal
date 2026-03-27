@@ -1,0 +1,31 @@
+# 🚢 WhatsApp AI : Railway Build Engine
+# This file ensures Nixpacks installs the Chromium dependencies needed for WhatsApp-Web.js
+
+[phases.setup]
+nixPkgs = [
+  "nodejs-20_x", 
+  "chromium", 
+  "nss", 
+  "freetype", 
+  "harfbuzz", 
+  "ca-certificates", 
+  "libnss3",
+  "libx11",
+  "libxcomposite",
+  "libxdamage",
+  "libxext",
+  "libxfixes",
+  "libxrandr",
+  "libxtst",
+  "pango",
+  "atk",
+  "cups",
+  "dbus",
+  "expat"
+]
+
+[phases.build]
+cmds = ["cd backend && npm install", "cd frontend && npm install && npm run build"]
+
+[start]
+cmd = "cd backend && npm start"
